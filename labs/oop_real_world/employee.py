@@ -1,3 +1,8 @@
+"""
+A simple class Employee that inherits attributes from the class Person
+"""
+
+
 class Person(object):
 
    def __init__(self,name, age):
