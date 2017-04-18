@@ -8,9 +8,9 @@ def data_type(arg):
 		return "no value"	
 	elif isinstance(arg, int):
 		if arg > 100:
-			return "More than 100"
+			return "more than 100"
 		elif arg < 100 :
-			return "Less than 100"
+			return "less than 100"
 		else:
 			return "equal to 100"
 	elif isinstance(arg, list):
