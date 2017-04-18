@@ -2,6 +2,7 @@
 
 #check if number is a prime
 def isPrime(number):
+    
     if number <= 1:
         return False
     for x in range(2, number):
@@ -14,6 +15,7 @@ def isPrime(number):
 #return list of primes from 0 to Number
 def primes(number):
     primes = []
+
     if isinstance(number,int):
         if number >= 0:
             for x in range(2, number+1):
