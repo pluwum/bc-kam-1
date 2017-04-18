@@ -1,8 +1,4 @@
-#
 #The function can be represented with O(N2)
-#
-#
-
 
 #check if number is a prime
 def isPrime(number):
@@ -27,4 +23,4 @@ def primes(number):
         else:
             raise ValueError
     else:
-        raise TypeError     
+        raise TypeError
