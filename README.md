@@ -3,6 +3,7 @@ The prime number function is an O(N2)
 
 
 FOLDER  STRUCTURE:
+==============
 
 # Real world OOP Solution
 /labs/oop_real_world
@@ -18,6 +19,7 @@ FOLDER  STRUCTURE:
 
 
 Day 3 LABS
+--------------
 
 # Word Count
 /labs/word_count
