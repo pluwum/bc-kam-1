@@ -13,4 +13,5 @@ def fizz_buzz(number):
 	else:
 		raise TypeError
 
+#mic check 1,2,3
 #print(fizz_buzz(15))
