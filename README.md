@@ -4,16 +4,23 @@ The prime number function is an O(N2)
 
 FOLDER  STRUCTURE:
 
-#Real world OOP Solution
+# Real world OOP Solution
 /labs/oop_real_world
 
-#Car Class Solution
+# Car Class Solution
 /labs/carclass
 
 # DataTypes Lab Solution
 /labs/datatypes
 
-#FizzBuzz Lab Solution
+# FizzBuzz Lab Solution
 /labs/fizzbuzz
 
-#
+
+Day 3 LABS
+
+# Word Count
+/labs/word_count
+
+# Max and Min
+/labs/max_and _min
