@@ -3,11 +3,11 @@ def fizz_buzz(number):
 
 	if isinstance(number, numberTypes):
 		if(number % 5 == 0) and (number % 3 == 0):
-			return 'fizzbuzz'
+			return 'FizzBuzz'
 		elif(number % 3 == 0):
-			return 'fizz'
+			return 'Fizz'
 		elif(number % 5 == 0):
-			return 'buzz'	
+			return 'Buzz'	
 		else:
 			return number	
 	else:
