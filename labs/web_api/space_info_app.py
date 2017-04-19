@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from datetime import datetime
+from urllib.error import URLError, HTTPError
 import json
 
 """
@@ -9,15 +10,25 @@ Open Notify is an open source project to provide a simple programming interface 
 
 
 def getApiResponse(url):
-	response = urlopen(url)
-	if (response.getcode() == 200):
-		response = response.read()
-		jsonResponse = json.loads(response)
-		return jsonResponse
-	else:
-		return {'message':'fail'}	
+	
+	try:
+		response = urlopen(url)
+		if (response.getcode() == 200):
+			response = response.read()
+			jsonResponse = json.loads(response)
+			return jsonResponse
+		else:
+			return {'message':'fail'}
 
+	except URLError as e:
+		print ('Accessing API resulted in a URL error code:', e)
+		return {'message':'fail'}
 
+	except HTTPError as e:
+		print ('Accessing API resulted in an HTTP error code:', e.code)
+		return {'message':'fail'}		
+
+				
 def getIssPosition():
 	url = "http://api.open-notify.org/iss-now.json"
 	response = getApiResponse(url)
@@ -27,23 +38,28 @@ def getIssPosition():
 	else:
 		return "Ooops something went wrong, please try again later "	
 
+
 def getIssDateAtPosition(latitude,longitude):
-	url = 'http://api.open-notify.org/iss-pass.json?lat={}&lon={}'.format(latitude, longitude)
-	response = getApiResponse(url)
-	if(response['message'] == 'success'):
-		response = response['response']
-		passes = len(response)
-		rises = []
+	if(abs(float(latitude)) <= 90 and abs(float(longitude)) <= 180):
+		url = 'http://api.open-notify.org/iss-pass.json?lat={}&lon={}'.format(latitude, longitude)
+		response = getApiResponse(url)
 
-		for rise in response:
-			risetime = datetime.fromtimestamp(rise['risetime'])
-			rises.append(str(risetime.strftime("* On %B %d, %Y at %H:%M:%S")))
+		if(response['message'] == 'success'):
+			response = response['response']
+			passes = len(response)
+			rises = []
 
-		rises = "\n".join(rises)
-		return "The ISS has {} upcoming passes at your specified location \n \n{}".format(passes,rises)
+			for rise in response:
+				risetime = datetime.fromtimestamp(rise['risetime'])
+				rises.append(str(risetime.strftime("* On %B %d, %Y at %H:%M:%S")))
 
+			rises = "\n".join(rises)
+			return "The ISS has {} upcoming passes at your specified location \n \n{}".format(passes,rises)
+
+		else:
+			return "Ooops something went wrong, please try again later "		
 	else:
-		return "Ooops something went wrong, please try again later "		
+		return "One or more cordiantes entered is inavlid"		
 
 def getNumberOfAstrosInSpaceNow():
 	url = "http://api.open-notify.org/astros.json"
@@ -66,7 +82,6 @@ def getNumberOfAstrosInSpaceNow():
 #Lets get input from Users
 
 print("\n ########## Welcome to the NASA CLI information Center ########## \n")
-
 print("Please specifiy the information you are looking for \n")
 print(" 1: See the current location of the ISS \n")
 print(" 2: Find out when the ISS will pass a location \n")
@@ -84,7 +99,7 @@ elif(option =='2'):
 	latitude = input("Enter Latitude: ")
 	longitude = input("Enter Longitude: ")
 	
-	print(getIssDateAtPosition(longitude, latitude))
+	print(getIssDateAtPosition(latitude,longitude))
 
 elif(option == '3'):
 	print(getNumberOfAstrosInSpaceNow())
