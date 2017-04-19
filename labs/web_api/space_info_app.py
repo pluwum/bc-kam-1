@@ -9,51 +9,61 @@ Open Notify is an open source project to provide a simple programming interface 
 
 
 def getApiResponse(url):
-	response = urlopen(url).read()
-	jsonResponse = json.loads(response)
-	return jsonResponse
+	response = urlopen(url)
+	if (response.getcode() == 200):
+		response = response.read()
+		jsonResponse = json.loads(response)
+		return jsonResponse
+	else:
+		return {'message':'fail'}	
 
 
 def getIssPosition():
 	url = "http://api.open-notify.org/iss-now.json"
 	response = getApiResponse(url)
-	position = response['iss_position']
-	return "The ISS is at Latitude: {}, Longitude: {}".format(position['latitude'], position['longitude'])
-
+	if(response['message'] == 'success'):
+		position = response['iss_position']
+		return "The ISS is at Latitude: {}, Longitude: {} right now".format(position['latitude'], position['longitude'])
+	else:
+		return "Ooops something went wrong, please try again later "	
 
 def getIssDateAtPosition(latitude,longitude):
 	url = 'http://api.open-notify.org/iss-pass.json?lat={}&lon={}'.format(latitude, longitude)
 	response = getApiResponse(url)
-	response = response['response']
-	passes = len(response)
-	rises = []
+	if(response['message'] == 'success'):
+		response = response['response']
+		passes = len(response)
+		rises = []
 
-	for rise in response:
-		risetime = datetime.fromtimestamp(rise['risetime'])
-		rises.append(str(risetime.strftime("* On %B %d, %Y at %H:%M:%S")))
+		for rise in response:
+			risetime = datetime.fromtimestamp(rise['risetime'])
+			rises.append(str(risetime.strftime("* On %B %d, %Y at %H:%M:%S")))
 
-	rises = "\n".join(rises)
-	return "The ISS has {} upcoming passes at your specified location \n \n{}".format(passes,rises)
+		rises = "\n".join(rises)
+		return "The ISS has {} upcoming passes at your specified location \n \n{}".format(passes,rises)
 
+	else:
+		return "Ooops something went wrong, please try again later "		
 
 def getNumberOfAstrosInSpaceNow():
 	url = "http://api.open-notify.org/astros.json"
 	response = getApiResponse(url)
-	count = response['number']
-	response = response['people']
-	astros = []
+	if(response['message'] == 'success'):
+		count = response['number']
+		response = response['people']
+		astros = []
 
-	for astro in response:
-		astros.append("* Name: {} Craft: {}".format(astro['name'], astro['craft']))
+		for astro in response:
+			astros.append("* Name: {} Craft: {}".format(astro['name'], astro['craft']))
 
-	astros = "\n".join(astros)	
-	return " There are {} astronuts in space right now\n \n{}".format(count,astros)
+		astros = "\n".join(astros)	
+		return " There are {} astronuts in space right now\n \n{}".format(count,astros)
+
+	else:
+		return "Ooops something went wrong, please try again later "			
 
 
-#print(getIssPosition())
-#print(getIssDateAtPosition(40,-74))
-#print(getNumberOfAstrosInSpaceNow())
-#print( " The ISS is currently at latitude: {} , longitude: {}".format(iss_pos['latitude'],iss_pos['longitude']))
+#Lets get input from Users
 
 print("\n ########## Welcome to the NASA CLI information Center ########## \n")
 
@@ -65,18 +75,19 @@ print(" 4: Quit \n")
 
 option = input("Enter your choice here: ")
 
-print(option)
 
+# Lets Proccess the inputs from the user
 if(option == '1'):
-	getIssPosition()
+	print (getIssPosition())
 
 elif(option =='2'):
 	latitude = input("Enter Latitude: ")
 	longitude = input("Enter Longitude: ")
-	getIssDateAtPosition(longitude, latitude)
+	
+	print(getIssDateAtPosition(longitude, latitude))
 
 elif(option == '3'):
-	getNumberOfAstrosInSpaceNow()
+	print(getNumberOfAstrosInSpaceNow())
 
 elif(option == '4'):
 	print("\n Good Bye")
