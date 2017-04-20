@@ -21,8 +21,8 @@ body, html {
     width: 269px;
     height:95px;
     margin:auto;
-    margin-top: 80px;
-    padding-top: 112px;
+    margin-top: 70px;
+    padding-top: 100px;
 }
 
 .navbar {
@@ -95,7 +95,6 @@ div.search-wrapper input {
 #footer-left {
     width:300px;
     left:0;
-    /*background-color:blue;*/
     display: inline-block;
 }
 
