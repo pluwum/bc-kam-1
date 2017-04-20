@@ -80,7 +80,6 @@ def getNumberOfAstrosInSpaceNow():
 
 
 #Lets get input from Users
-
 print("\n ########## Welcome to the NASA CLI information Center ########## \n")
 print("Please specifiy the information you are looking for \n")
 print(" 1: See the current location of the ISS \n")
