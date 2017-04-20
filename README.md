@@ -5,7 +5,7 @@ The prime number function is an O(N2)
 FOLDER  STRUCTURE:
 ==============
 
-Day 3 LABS
+Day 2 LABS
 --------------
 
 - Real world OOP Solution
@@ -29,3 +29,13 @@ Day 3 LABS
 
 - Max and Min
 /labs/max_and _min
+
+
+Day 4 LABS
+--------------
+
+- Binary Search
+/labs/binary_search
+
+- Missing Number
+/labs/missing_number
