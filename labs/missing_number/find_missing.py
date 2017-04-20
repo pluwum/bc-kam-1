@@ -9,4 +9,4 @@ def find_missing(arg1, arg2):
 			arg2 = set(arg2)
 			diff = arg1 ^ arg2
 
-			return diff.pop()	
+			return diff.pop()
