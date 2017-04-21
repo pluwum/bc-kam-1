@@ -1,7 +1,6 @@
 """
-A simple class Employee that inherits attributes from the class Person
+   A simple class Employee that inherits attributes from the class Person
 """
-
 
 class Person(object):
 
