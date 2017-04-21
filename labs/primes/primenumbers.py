@@ -1,6 +1,7 @@
 """
     Function that returns Prime numbers between 0 to N
 """
+
 #check if number is a prime
 def isPrime(number):
     if number <= 1:
