@@ -24,9 +24,3 @@ class Employee(Person):
 
    def getAge(self):
       print ("Name : ", self.name,  ", Age: ", self.age)
-
-
-#patrick = Employee('Patrick','26','455433','IT')
-
-#patrick.getAge()
-
